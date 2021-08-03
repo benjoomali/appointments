@@ -1,0 +1,62 @@
+<%= form_with(model: form_entry) do |form| %>
+  <% if form_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(form_entry.errors.count, "error") %> prohibited this form_entry from being saved:</h2>
+
+      <ul>
+        <% form_entry.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone %>
+    <%= form.text_field :phone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :form_id %>
+    <%= form.text_field :form_id %>
+  </div>
+
+  <div>
+  <h3>Associations</h3>
+  <%= form.fields_for :entry_appointments do |f| %>
+  <div class="field">
+    <%= f.label :appointment_id %>
+    <%= f.text_field :appointment_id %>
+  </div>
+  <% end %>
+  </div>
+
+  <div class="max-w-lg">
+  <%= month_calendar(events: @appointments) do |date, appointments| %>
+    <%= date.day %>
+
+    <% appointments.each do |appointment| %>
+      <div>
+        <%= appointment.id %> - <%= appointment.start_time.strftime("%I:%M%p") %> - <%= appointment.end_time.strftime("%I:%M%p") %>
+      </div>
+    <% end %>
+  <% end %>
+  </div>
+
+
+  
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
