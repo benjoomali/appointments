@@ -6,4 +6,6 @@ class FormEntry < ApplicationRecord
   accepts_nested_attributes_for :entry_appointments
 
   validates :name, :email, presence: true
+  validates :entry_appointments, :presence => true
+
 end

@@ -42,15 +42,15 @@
   </div>
 
   <div class="max-w-lg">
-  <%= month_calendar(events: @appointments) do |date, appointments| %>
-    <%= date.day %>
+  <%#= month_calendar(events: @appointments) do |date, appointments| %>
+    <%#= date.day %>
 
-    <% appointments.each do |appointment| %>
+    <%# appointments.each do |appointment| %>
       <div>
-        <%= appointment.id %> - <%= appointment.start_time.strftime("%I:%M%p") %> - <%= appointment.end_time.strftime("%I:%M%p") %>
+        <%#= appointment.id %> - <%#= appointment.start_time.strftime("%I:%M%p") %> - <%#= appointment.end_time.strftime("%I:%M%p") %>
       </div>
-    <% end %>
-  <% end %>
+    <%# end %>
+  <%# end %>
   </div>
 
 

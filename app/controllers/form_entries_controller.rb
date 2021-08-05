@@ -3,7 +3,7 @@ class FormEntriesController < ApplicationController
 
   # GET /form_entries or /form_entries.json
   def index
-    @form_entries = FormEntry.all
+    @form_entries = FormEntry.includes(:appointments).all
   end
 
   # GET /form_entries/1 or /form_entries/1.json
@@ -13,15 +13,16 @@ class FormEntriesController < ApplicationController
   # GET /form_entries/new
   def new
     @form_entry = FormEntry.new
+    
+    # Build the nested association between FormEntry and Appointments for Nested Form
     @form_entry.entry_appointments.build
     @form_entry.appointments.build
-    @appointments = Appointment.all
+
+    @appointments = Appointment.all #Temporary to show all appointments on calendar
   end
 
   # GET /form_entries/1/edit
   def edit
-    @form_entry.entry_appointments.build
-    @form_entry.appointments.build
     @appointments = Appointment.all
   end
 

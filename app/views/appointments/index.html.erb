@@ -5,11 +5,13 @@
 <table>
   <thead>
     <tr>
+      <th>ID</th>
       <th>Start time</th>
       <th>End time</th>
       <th>Capacity</th>
       <th>Bookable</th>
       <th>Calendar</th>
+      <th># of Appts Booked</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,11 +19,13 @@
   <tbody>
     <% @appointments.each do |appointment| %>
       <tr>
+        <td><%= appointment.id%></td>
         <td><%= appointment.start_time %></td>
         <td><%= appointment.end_time %></td>
         <td><%= appointment.capacity %></td>
         <td><%= appointment.bookable %></td>
         <td><%= appointment.calendar_id %></td>
+        <td><%= appointment.entry_appointments.count %></td>
         <td><%= link_to 'Show', appointment %></td>
         <td><%= link_to 'Edit', edit_appointment_path(appointment) %></td>
         <td><%= link_to 'Destroy', appointment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
