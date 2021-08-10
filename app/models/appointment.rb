@@ -5,7 +5,7 @@ class Appointment < ApplicationRecord
   has_many :form_entries, through: :entry_appointments
   accepts_nested_attributes_for :entry_appointments
 
-  validates :capacity, presence: true
+  validates :capacity, :start_time, :end_time, presence: true
 
   # Return false if more or equal appointments than available
   def check_availability

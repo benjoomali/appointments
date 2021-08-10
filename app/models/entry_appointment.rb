@@ -2,6 +2,7 @@ class EntryAppointment < ApplicationRecord
   belongs_to :form_entry
   belongs_to :appointment
 
+  #validate :appointment_id, :presence => true 
   validate :validate_capacity_of_appointment
 
   # Validation for the Appointment's Capacity, return error if over

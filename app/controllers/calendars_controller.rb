@@ -8,6 +8,7 @@ class CalendarsController < ApplicationController
 
   # GET /calendars/1 or /calendars/1.json
   def show
+    @appointments = @calendar.appointments
   end
 
   # GET /calendars/new

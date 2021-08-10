@@ -1,4 +1,5 @@
 class SchedulesController < ApplicationController
+    require 'slotfinder/slotfinder.rb'
     before_action :set_schedule, only: %i[ show edit update destroy ]
   
     # GET /schedules or /form_entries.json
@@ -25,6 +26,18 @@ class SchedulesController < ApplicationController
   
       respond_to do |format|
         if @schedule.save
+          appts = Slotfinder.get_slots( 
+            for_range: @schedule.start_datetime..@schedule.end_datetime,
+            slot_length_mins: 30,
+            interval_mins: 30,
+          )
+          counter = 0
+          appts.each do |appt|
+            appointment = Appointment.create(start_time: appt[:start_time], end_time: appt[:end_time], bookable: true, calendar_id: @schedule.calendar_id, capacity: 1)
+            counter += 1 if appointment.persisted?
+          end 
+          puts "Created #{counter} appointments"
+
           format.html { redirect_to schedules_path notice: "Schedule was successfully created." }
           format.json { render :show, status: :created, location: @schedule }
         else
@@ -60,6 +73,10 @@ class SchedulesController < ApplicationController
       # Use callbacks to share common setup or constraints between actions.
       def set_schedule
         @schedule = Schedule.find(params[:id])
+      end
+
+      def set_calendar
+        @calendar = Calendar.find(params[:calendar_id])
       end
   
       # Only allow a list of trusted parameters through.

@@ -15,5 +15,27 @@
   <%= @calendar.user_id %>
 </p>
 
+<div>
+  <p>Work Schedules</p>
+  <%= link_to "Schedules", schedules_path %>
+</div>
+
+  <div class="max-w-lg">
+  <%= month_calendar(events: @appointments) do |date, appointments| %>
+    <%= date.day %>
+
+    <% appointments.each do |appointment| %>
+      <div style="color: #FFC; padding: 4px; background-color: #64a1d1; margin-bottom:1px;">
+      <% if appointment.check_availability %>
+        <%= appointment.id %> - <%= appointment.start_time.strftime("%I:%M%p") %>
+      <% else %>
+        Booked - <%= appointment.start_time.strftime("%I:%M%p") %>
+      <% end%>
+      </div>
+    <% end %>
+  <% end %>
+  </div>
+
+
 <%= link_to 'Edit', edit_calendar_path(@calendar) %> |
 <%= link_to 'Back', calendars_path %>
