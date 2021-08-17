@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   resources :calendars
   resources :forms
   resources :schedules
+  resources :availabilities
   devise_for :users
 
-  root to: 'forms#index'
+  root to: 'availabiltiies#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

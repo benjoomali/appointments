@@ -15,9 +15,10 @@ class FormEntriesController < ApplicationController
     @form_entry = FormEntry.new
     
     # Build the nested association between FormEntry and Appointments for Nested Form
-    @form_entry.entry_appointments.build
-    @form_entry.appointments.build
+    #@form_entry.entry_appointments.build
+    #@form_entry.appointments.build
 
+    @availabilities = Availability.all
     @appointments = Appointment.all #Temporary to show all appointments on calendar
   end
 

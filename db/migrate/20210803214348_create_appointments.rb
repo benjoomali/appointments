@@ -3,9 +3,8 @@ class CreateAppointments < ActiveRecord::Migration[6.1]
     create_table :appointments do |t|
       t.datetime :start_time
       t.datetime :end_time
-      t.integer :capacity
-      t.boolean :bookable
       t.references :calendar, null: false, foreign_key: true
+      t.references :form_entry, null: false, foreign_key: true
 
       t.timestamps
     end

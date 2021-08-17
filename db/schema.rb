@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_03_220850) do
+ActiveRecord::Schema.define(version: 2021_08_13_211328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(version: 2021_08_03_220850) do
     t.index ["calendar_id"], name: "index_appointments_on_calendar_id"
   end
 
+  create_table "availabilities", force: :cascade do |t|
+    t.bigint "calendar_id", null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["calendar_id"], name: "index_availabilities_on_calendar_id"
+  end
+
   create_table "calendars", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -33,15 +42,6 @@ ActiveRecord::Schema.define(version: 2021_08_03_220850) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_calendars_on_user_id"
-  end
-
-  create_table "entry_appointments", force: :cascade do |t|
-    t.bigint "form_entry_id", null: false
-    t.bigint "appointment_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["appointment_id"], name: "index_entry_appointments_on_appointment_id"
-    t.index ["form_entry_id"], name: "index_entry_appointments_on_form_entry_id"
   end
 
   create_table "form_entries", force: :cascade do |t|
@@ -88,9 +88,8 @@ ActiveRecord::Schema.define(version: 2021_08_03_220850) do
   end
 
   add_foreign_key "appointments", "calendars"
+  add_foreign_key "availabilities", "calendars"
   add_foreign_key "calendars", "users"
-  add_foreign_key "entry_appointments", "appointments"
-  add_foreign_key "entry_appointments", "form_entries"
   add_foreign_key "form_entries", "forms"
   add_foreign_key "forms", "users"
   add_foreign_key "schedules", "calendars"

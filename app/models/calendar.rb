@@ -4,4 +4,5 @@ class Calendar < ApplicationRecord
   belongs_to :user
   has_many :schedules
   has_many :appointments
+  has_many :availabilities
 end
