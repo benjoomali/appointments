@@ -8,6 +8,7 @@
       <th>Name</th>
       <th>Description</th>
       <th>User</th>
+      <th>Calendar</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
         <td><%= form.name %></td>
         <td><%= form.description %></td>
         <td><%= form.user_id %></td>
+        <td><%= form.calendars&.first&.name %></td>
         <td><%= link_to 'Show', form %></td>
         <td><%= link_to 'Edit', edit_form_path(form) %></td>
         <td><%= link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' } %></td>

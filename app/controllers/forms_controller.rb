@@ -13,6 +13,8 @@ class FormsController < ApplicationController
   # GET /forms/new
   def new
     @form = Form.new
+    @form.form_calendars.build
+    @form.calendars.build
   end
 
   # GET /forms/1/edit
@@ -64,6 +66,6 @@ class FormsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def form_params
-      params.require(:form).permit(:name, :description, :user_id)
+      params.require(:form).permit(:name, :description, :user_id, form_calendars_attributes: [:id, :calendar_id])
     end
 end

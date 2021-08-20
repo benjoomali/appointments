@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_13_211328) do
+ActiveRecord::Schema.define(version: 2021_08_19_230155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(version: 2021_08_13_211328) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_calendars_on_user_id"
+  end
+
+  create_table "form_calendars", force: :cascade do |t|
+    t.bigint "form_id", null: false
+    t.bigint "calendar_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["calendar_id"], name: "index_form_calendars_on_calendar_id"
+    t.index ["form_id"], name: "index_form_calendars_on_form_id"
   end
 
   create_table "form_entries", force: :cascade do |t|
@@ -90,6 +99,8 @@ ActiveRecord::Schema.define(version: 2021_08_13_211328) do
   add_foreign_key "appointments", "calendars"
   add_foreign_key "availabilities", "calendars"
   add_foreign_key "calendars", "users"
+  add_foreign_key "form_calendars", "calendars"
+  add_foreign_key "form_calendars", "forms"
   add_foreign_key "form_entries", "forms"
   add_foreign_key "forms", "users"
   add_foreign_key "schedules", "calendars"
