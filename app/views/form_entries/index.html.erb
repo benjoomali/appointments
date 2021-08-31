@@ -19,7 +19,7 @@
         <td><%= form_entry.name %></td>
         <td><%= form_entry.email %></td>
         <td><%= form_entry.phone %></td>
-        <td><%= form_entry.appointments.first.start_time.strftime("%D %I:%M%p") if form_entry.appointments.present? %></td>
+        <td><%#= form_entry.appointments.first.start_time.strftime("%D %I:%M%p") if form_entry.appointments.present? %></td>
         <td><%= link_to 'Show', form_entry %></td>
         <td><%= link_to 'Edit', edit_form_entry_path(form_entry) %></td>
         <td><%= link_to 'Destroy', form_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>

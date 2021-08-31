@@ -3,7 +3,7 @@ class FormEntriesController < ApplicationController
 
   # GET /form_entries or /form_entries.json
   def index
-    @form_entries = FormEntry.includes(:appointments).all
+    @form_entries = FormEntry.all
   end
 
   # GET /form_entries/1 or /form_entries/1.json
@@ -12,6 +12,7 @@ class FormEntriesController < ApplicationController
 
   # GET /form_entries/new
   def new
+    @form = Form.find(params[:form_id])
     @form_entry = FormEntry.new
     
     # Build the nested association between FormEntry and Appointments for Nested Form
@@ -29,12 +30,14 @@ class FormEntriesController < ApplicationController
 
   # POST /form_entries or /form_entries.json
   def create
-    @form_entry = FormEntry.new(form_entry_params)
+    @form = Form.find(params[:form_id])
+    @form_entry = @form.form_entries.new(form_entry_params)
+    
 
 
     respond_to do |format|
       if @form_entry.save
-        format.html { redirect_to @form_entry, notice: "Form entry was successfully created." }
+        format.html { redirect_to forms_path, notice: "Form entry was successfully created." }
         format.json { render :show, status: :created, location: @form_entry }
       else
         format.html { render :new, status: :unprocessable_entity }

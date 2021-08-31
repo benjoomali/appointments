@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   resources :appointments
-  resources :form_entries
+  #resources :form_entries
   resources :calendars
-  resources :forms
+  resources :forms do 
+    resources :form_entries
+  end 
   resources :schedules
   resources :availabilities
   devise_for :users

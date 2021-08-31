@@ -1,4 +1,4 @@
-<%= form_with(model: form_entry) do |form| %>
+<%= form_for [@form, form_entry] do |form| %>
   <% if form_entry.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(form_entry.errors.count, "error") %> prohibited this form_entry from being saved:</h2>
@@ -26,11 +26,6 @@
     <%= form.text_field :phone %>
   </div>
 
-  <div class="field">
-    <%= form.label :form_id %>
-    <%= form.text_field :form_id %>
-  </div>
-
   <div>
   <h3>Associations</h3>
   <%#= form.fields_for :appointments do |f| %>
@@ -40,6 +35,8 @@
   </div>
   <%# end %>
   </div>
+
+  <div>You are on Form #<%= @form.id %></div>
 
   <div class="max-w-lg">
   <%= month_calendar(events: @appointments) do |date, appointments| %>
