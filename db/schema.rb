@@ -18,12 +18,12 @@ ActiveRecord::Schema.define(version: 2021_08_19_230155) do
   create_table "appointments", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer "capacity"
-    t.boolean "bookable"
     t.bigint "calendar_id", null: false
+    t.bigint "form_entry_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["calendar_id"], name: "index_appointments_on_calendar_id"
+    t.index ["form_entry_id"], name: "index_appointments_on_form_entry_id"
   end
 
   create_table "availabilities", force: :cascade do |t|
@@ -38,9 +38,12 @@ ActiveRecord::Schema.define(version: 2021_08_19_230155) do
   create_table "calendars", force: :cascade do |t|
     t.string "name"
     t.text "description"
+    t.integer "interval"
     t.bigint "user_id", null: false
+    t.bigint "form_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["form_id"], name: "index_calendars_on_form_id"
     t.index ["user_id"], name: "index_calendars_on_user_id"
   end
 
@@ -75,9 +78,9 @@ ActiveRecord::Schema.define(version: 2021_08_19_230155) do
   create_table "schedules", force: :cascade do |t|
     t.time "start_time"
     t.time "end_time"
+    t.integer "day_of_week"
     t.datetime "start_datetime"
     t.datetime "end_datetime"
-    t.integer "day_of_week"
     t.bigint "calendar_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -97,7 +100,9 @@ ActiveRecord::Schema.define(version: 2021_08_19_230155) do
   end
 
   add_foreign_key "appointments", "calendars"
+  add_foreign_key "appointments", "form_entries"
   add_foreign_key "availabilities", "calendars"
+  add_foreign_key "calendars", "forms"
   add_foreign_key "calendars", "users"
   add_foreign_key "form_calendars", "calendars"
   add_foreign_key "form_calendars", "forms"

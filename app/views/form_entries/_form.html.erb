@@ -28,27 +28,43 @@
 
   <div>
   <h3>Associations</h3>
-  <%#= form.fields_for :appointments do |f| %>
-  <div class="field">
-    <%#= f.label :appointment_id %>
-    <%#= f.text_field :appointment_id %>
   </div>
-  <%# end %>
+  <div>
+
+  <%= form.fields_for :appointments do |f| %>
+    <p>Appointments</p>
+    <div class="field">
+      <%= f.label :start_time %>
+      <%= f.datetime_select :start_time %>
+    </div>
+    <div class="field">
+      <%= f.label :end_time %>
+      <%= f.datetime_select :end_time %>
+    </div>
+    <div class="field">
+      <%= f.label :calendar_id %>
+      <%= f.number_field :calendar_id %>
+    </div>
+  <% end %>
   </div>
 
   <div>You are on Form #<%= @form.id %></div>
 
+  <% if @availabilities.present? %>
   <div class="max-w-lg">
-  <%= month_calendar(events: @appointments) do |date, appointments| %>
+  <%= month_calendar(events: @availabilities) do |date, availabilities| %>
     <%= date.day %>
 
-    <% appointments.each do |appointment| %>
+    <% availabilities.each do |avail| %>
       <div>
-        <%= appointment.id %> - <%= appointment.start_time.strftime("%I:%M%p") %> - <%= appointment.end_time.strftime("%I:%M%p") %>
+        <%= avail.id %> - <%= avail.start_time.strftime("%I:%M%p") %> - <%= avail.end_time.strftime("%I:%M%p") %>
       </div>
     <% end %>
   <% end %>
   </div>
+  <% else %>
+  <p>There are no available times to book.</p>
+  <% end %>
 
 
   

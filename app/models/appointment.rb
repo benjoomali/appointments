@@ -1,11 +1,17 @@
 class Appointment < ApplicationRecord
   belongs_to :calendar
+  belongs_to :form_entries
 
-  has_many :entry_appointments, :dependent => :destroy 
-  has_many :form_entries, through: :entry_appointments
-  accepts_nested_attributes_for :entry_appointments
+  #validate that availability exists
+  #validate that it does not go over time limit
+  #validate that the time is correct
 
-  validates :capacity, :start_time, :end_time, presence: true
+
+  #has_many :entry_appointments, :dependent => :destroy 
+  #has_many :form_entries, through: :entry_appointments
+  #accepts_nested_attributes_for :entry_appointments
+
+  #validates :capacity, :start_time, :end_time, presence: true
 
   # Return false if more or equal appointments than available
   def check_availability

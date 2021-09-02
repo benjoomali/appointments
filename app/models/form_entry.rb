@@ -1,5 +1,7 @@
 class FormEntry < ApplicationRecord
   belongs_to :form
+  has_many :appointments
+  accepts_nested_attributes_for :appointments
 
   # has_many :entry_appointments, :dependent => :destroy 
   # has_many :appointments, through: :entry_appointments

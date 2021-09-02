@@ -14,13 +14,13 @@ class FormEntriesController < ApplicationController
   def new
     @form = Form.find(params[:form_id])
     @form_entry = FormEntry.new
+    @form_entry.appointments.build
     
-    # Build the nested association between FormEntry and Appointments for Nested Form
-    #@form_entry.entry_appointments.build
-    #@form_entry.appointments.build
-
-    @availabilities = Availability.all
-    @appointments = Appointment.all #Temporary to show all appointments on calendar
+    
+    # If Form is attached to calendar, create availabilities variable
+    if @form.calendars.any?
+      @availabilities = @form.calendars.first.availabilities
+    end 
   end
 
   # GET /form_entries/1/edit
@@ -32,8 +32,6 @@ class FormEntriesController < ApplicationController
   def create
     @form = Form.find(params[:form_id])
     @form_entry = @form.form_entries.new(form_entry_params)
-    
-
 
     respond_to do |format|
       if @form_entry.save
@@ -76,6 +74,6 @@ class FormEntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def form_entry_params
-      params.require(:form_entry).permit(:name, :email, :phone, :form_id, entry_appointments_attributes:[:id, :appointment_id])
+      params.require(:form_entry).permit(:name, :email, :phone, :form_id, appointments_attributes:[:start_time, :end_time, :calendar_id])
     end
 end

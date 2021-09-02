@@ -10,7 +10,8 @@ class Availability < ApplicationRecord
 
   # Validation, no breathing
   validates :start_time, :end_time, presence: true 
-  validate :real_times, :overlapping_times
+  # validate :real_times, :overlapping_times
+  # validate that the end_time can't be less than the start_time 
 
   def overlapping_times
     range = Range.new start_time, end_time

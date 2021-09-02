@@ -1,17 +1,13 @@
 class AvailabilitiesController < ApplicationController 
     require 'slotfinder/slotfinder.rb'
     before_action :set_availability, only: %i[ show edit update destroy ]
+    before_action :get_slots, only: %i[ show edit update destroy ]
 
 def index 
     @availabilities = Availability.all
 end 
 
 def show 
-    @appts = Slotfinder.get_slots( 
-        for_range: @availability.start_time..@availability.end_time,
-        slot_length_mins: 30,
-        interval_mins: 30,
-    )
 end 
 
 def new
@@ -52,9 +48,21 @@ end
 
 
 private
+def get_slots
+  @appts = Slotfinder.get_slots( 
+    for_range: @availability.start_time..@availability.end_time,
+    slot_length_mins: 30,
+    interval_mins: 30,
+  )
+end
+
 # Use callbacks to share common setup or constraints between actions.
 def set_availability
   @availability = Availability.find(params[:id])
+end
+
+def set_calendar
+  @calendar = Calendar.find(params[:calendar_id])
 end
 
 # Only allow a list of trusted parameters through.

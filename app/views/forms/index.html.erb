@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>ID</th>
       <th>Name</th>
       <th>Description</th>
       <th>User</th>
@@ -16,6 +17,7 @@
   <tbody>
     <% @forms.each do |form| %>
       <tr>
+        <td><%= form.id %></td>
         <td><%= form.name %></td>
         <td><%= form.description %></td>
         <td><%= form.user_id %></td>
