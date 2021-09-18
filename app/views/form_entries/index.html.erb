@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>ID</th>
       <th>Name</th>
       <th>Email</th>
       <th>Phone</th>
@@ -16,13 +17,14 @@
   <tbody>
     <% @form_entries.each do |form_entry| %>
       <tr>
+        <td><%= form_entry.id %></td>
         <td><%= form_entry.name %></td>
         <td><%= form_entry.email %></td>
         <td><%= form_entry.phone %></td>
-        <td><%#= form_entry.appointments.first.start_time.strftime("%D %I:%M%p") if form_entry.appointments.present? %></td>
-        <td><%= link_to 'Show', form_entry %></td>
-        <td><%= link_to 'Edit', edit_form_entry_path(form_entry) %></td>
-        <td><%= link_to 'Destroy', form_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= form_entry.appointments.first.start_time.strftime("%D %I:%M%p") if form_entry.appointments.present? %> - <%= form_entry.appointments.first.end_time.strftime("%D %I:%M%p") if form_entry.appointments.present? %></td>
+        <td><%#= link_to 'Show', form_form_entry_path(form_entry) %></td>
+        <td><%#= link_to 'Edit', edit_form_entry_path(form_entry) %></td>
+        <td><%#= link_to 'Destroy', form_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Form Entry', new_form_entry_path %>
+<%#= link_to 'New Form Entry', new_form_entry_path %>

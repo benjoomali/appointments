@@ -1,9 +1,24 @@
 class Appointment < ApplicationRecord
   belongs_to :calendar
-  belongs_to :form_entries
+  belongs_to :form_entries, optional: true
 
-  #validate that availability exists
-  #validate that it does not go over time limit
+  validates :start_time, :end_time, presence: true
+  validate :check_interval
+
+
+  private
+  #TODO:validate that availability exists
+  def check_availability
+  end
+
+  #validate that the appointment created is the exact interval set by calendar
+  def check_interval 
+    interval = self.calendar.interval 
+    time = (end_time - start_time)/60
+    if time.to_i != self.calendar.interval
+      errors.add(:appointment, "This appointment does not meet the interval requirements")
+    end
+  end 
   #validate that the time is correct
 
 
@@ -11,9 +26,10 @@ class Appointment < ApplicationRecord
   #has_many :form_entries, through: :entry_appointments
   #accepts_nested_attributes_for :entry_appointments
 
-  #validates :capacity, :start_time, :end_time, presence: true
+
 
   # Return false if more or equal appointments than available
+=begin
   def check_availability
     if self.entry_appointments.count >= capacity 
       return false
@@ -22,6 +38,8 @@ class Appointment < ApplicationRecord
       return true 
     end 
   end
+
+=end
 
 
 end

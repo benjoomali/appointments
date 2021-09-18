@@ -35,7 +35,7 @@ class FormEntriesController < ApplicationController
 
     respond_to do |format|
       if @form_entry.save
-        format.html { redirect_to forms_path, notice: "Form entry was successfully created." }
+        format.html { redirect_to form_form_entry_path(params[:form_id], @form_entry.id), notice: "Form entry was successfully created." }
         format.json { render :show, status: :created, location: @form_entry }
       else
         format.html { render :new, status: :unprocessable_entity }
