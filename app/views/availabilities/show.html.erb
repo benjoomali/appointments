@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start Time</strong>
+  <%= @availability.start_time %>
+</p>
+
+<p>
+  <strong>End Time</strong>
+  <%= @availability.end_time %>
+</p>
+
+<p>
+  <strong>Calendar:</strong>
+  <%= @availability.calendar_id %>
+</p>
+
+<div>
+  <h2>Slots!!!!!!!</h2>
+  <div>
+  <ul>
+  <% @appts.each do |appointment| %>
+    <li><%= appointment[:start_time] %> - <%= appointment[:end_time] %></li>
+  <% end %>
+  </ul>
+  </div>
+  <div> <%= @appts %> </div>
+</div>
+
+
+
+<%= link_to 'Back', availabilities_path %>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @form.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @form.description %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @form.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_form_path(@form) %> |
+<%= link_to 'Back', forms_path %>

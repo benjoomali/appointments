@@ -1,0 +1,25 @@
+<%= form_with(model: form) do |form| %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <%= form.fields_for :form_calendars do |f| %>
+    <%= f.select :calendar_id, Calendar.all.collect {|x| [x.name, x.id]} %>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

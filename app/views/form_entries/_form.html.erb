@@ -1,0 +1,75 @@
+<%= form_for [@form, form_entry] do |form| %>
+  <% if form_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(form_entry.errors.count, "error") %> prohibited this form_entry from being saved:</h2>
+
+      <ul>
+        <% form_entry.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone %>
+    <%= form.text_field :phone %>
+  </div>
+
+  <div>
+  <h3>Associations</h3>
+  </div>
+  <div>
+
+  <%= form.fields_for :appointments do |f| %>
+    <p>Appointments</p>
+    <div class="field">
+      <%= f.label :start_time %>
+      <%= f.datetime_select :start_time %>
+    </div>
+    <div class="field">
+      <%= f.label :end_time %>
+      <%= f.datetime_select :end_time %>
+    </div>
+    <div class="field">
+      <%= f.number_field :calendar_id, value: @form.calendars.first.id %>
+    </div>
+  <% end %>
+  </div>
+
+  <div>You are on Form #<%= @form.id %></div>
+  <div>You are on Calendar #<%= @form.calendars.first.id %></div>
+
+  <% if @availabilities.present? %>
+  <div class="max-w-lg">
+  <%= month_calendar(events: @availabilities) do |date, availabilities| %>
+    <%= date.day %>
+
+    <% availabilities.each do |avail| %>
+      <div>
+        <%= avail.id %> - <%= avail.start_time.strftime("%I:%M%p") %> - <%= avail.end_time.strftime("%I:%M%p") %>
+      </div>
+    <% end %>
+  <% end %>
+  </div>
+  <% else %>
+  <p>There are no available times to book.</p>
+  <% end %>
+
+
+  
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
