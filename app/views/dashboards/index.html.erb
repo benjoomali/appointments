@@ -2,7 +2,7 @@
 
 <br/>
 
-<h2>Calendars</h2>
+<div><h2>Calendars </h2> <span>Define the interval of minutes an appointment can be booked on</span></div>
 <% @calendars.each do |calendar| %>
     <ul>
         <li>ID:<%= calendar.id %> (<%= calendar.interval %> interval)</li>
@@ -29,6 +29,7 @@
 <% @forms.each do |form| %>
     <div>
         <h4>Name: <%= form.name %></h4>
+        <%= link_to "New Form Entry", new_form_form_entry_path(form) %>
         <p>Entries:</p>
         <ul>
         <% form.form_entries.each do |entry| %>
