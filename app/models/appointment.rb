@@ -4,12 +4,13 @@ class Appointment < ApplicationRecord
 
   validates :start_time, :end_time, presence: true
   validate :check_interval
-
-
-  private
+  
   #TODO:validate that availability exists
   def check_availability
   end
+
+  private
+
 
   #validate that the appointment created is the exact interval set by calendar
   def check_interval 
