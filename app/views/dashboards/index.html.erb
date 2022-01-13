@@ -5,7 +5,7 @@
 <div><h2>Calendars </h2> <span>Define the interval of minutes an appointment can be booked on</span></div>
 <% @calendars.each do |calendar| %>
     <ul>
-        <li>ID:<%= calendar.id %> (<%= calendar.interval %> interval)</li>
+        <li>ID:<%= calendar.id %> (<%= calendar.interval %> minute interval)</li>
     </ul>
 <% end %>
 
@@ -18,7 +18,7 @@
 <%= link_to "Add Availability", new_availability_path %>
 
 
-<div><h2>Appointments</h2> <span>Every booked appointment</span></div>
+<div><h2>Appointments</h2> <span>Every booked appointment. Appts can't be booked individually without form submit</span></div>
 <% @appointments.each do |appt| %>
     <ul>
         <li><%= appt.start_time %></li>

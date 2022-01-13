@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 2021_12_20_235935) do
   end
 
   create_table "appointments", force: :cascade do |t|
-    t.datetime "start_time", precision: 6
-    t.datetime "end_time", precision: 6
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.bigint "calendar_id", null: false
     t.bigint "form_entry_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(version: 2021_12_20_235935) do
 
   create_table "availabilities", force: :cascade do |t|
     t.bigint "calendar_id", null: false
-    t.datetime "start_time", precision: 6
-    t.datetime "end_time", precision: 6
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["calendar_id"], name: "index_availabilities_on_calendar_id"
@@ -107,8 +107,8 @@ ActiveRecord::Schema.define(version: 2021_12_20_235935) do
     t.time "start_time"
     t.time "end_time"
     t.integer "day_of_week"
-    t.datetime "start_datetime", precision: 6
-    t.datetime "end_datetime", precision: 6
+    t.datetime "start_datetime"
+    t.datetime "end_datetime"
     t.bigint "calendar_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -119,8 +119,8 @@ ActiveRecord::Schema.define(version: 2021_12_20_235935) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: 6
-    t.datetime "remember_created_at", precision: 6
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true

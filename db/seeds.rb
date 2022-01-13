@@ -2,11 +2,11 @@
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
 # Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
 User.create!(email: "ben@test.com", password: "f0rg3t", password_confirmation: "f0rg3t")
-Calendar.create!(name: "Main", description: "This is the main calendar for testing", user_id: 1)
-#Form.create!(name: "Main", description: "This is the main form for testing", user_id: 1, calendar_id)
-#Schedule.create(day_of_week: 4, start_time: Time.parse("11:20am"), end_time: Time.parse("12:40pm"), calendar_id: 1)
+Calendar.create!(name: "Main", description: "This is the main calendar for testing", user_id: 1, interval: 30)
+Form.create!(name: "Main", description: "This is the main form for testing", user_id: 1)
+Availability.create!(calendar_id: 1, start_time: DateTime.parse("Monday at 10am UTC"), end_time: DateTime.parse("Monday at 4pm UTC"))
+Availability.create!(calendar_id: 1, start_time: DateTime.parse("Tuesday at 10am UTC"), end_time: DateTime.parse("Tuesday at 2pm UTC"))
+Availability.create!(calendar_id: 1, start_time: DateTime.parse("Thursday at 10am UTC"), end_time: DateTime.parse("Thursday at 4pm UTC"))
+Availability.create!(calendar_id: 1, start_time: DateTime.parse("Friday at 11:30am UTC"), end_time: DateTime.parse("Friday at 2pm UTC"))
