@@ -42,13 +42,13 @@
       <%= f.datetime_select :end_time %>
     </div>
     <div class="field">
-      <%= f.number_field :calendar_id, value: form.calendars.first.id %>
+      <%= f.number_field :calendar_id, value: @form.calendars.first.id %>
     </div>
   <% end %>
   </div>
 
-  <div>You are on Form #<%= @form.id %></div>
-  <div>You are on Calendar #<%= @form.calendars.first.id %></div>
+  <div>You are on Form: <%= @form.name %></div>
+  <div>You are on Calendar: <%= @form.calendars.first.name %></div>
 
   <% if @availabilities.present? %>
   <div class="max-w-lg">

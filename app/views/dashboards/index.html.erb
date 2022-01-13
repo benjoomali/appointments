@@ -2,12 +2,11 @@
 
 <br/>
 
-<div><h2>Calendars </h2> <span>Define the interval of minutes an appointment can be booked on</span></div>
-<% @calendars.each do |calendar| %>
-    <ul>
-        <li>ID:<%= calendar.id %> (<%= calendar.interval %> minute interval)</li>
-    </ul>
-<% end %>
+<div><h2>Calendars </h2></div>
+
+<div>You are on Calendar ID:<%= @calendar.id %> </div>
+<div>This Calendar is split into <%= @calendar.interval %> minute intervals</div>
+
 
 <div><h2>Availability</h2> <span>Define when appointments can be scheduled based off of Calendar interval time.</span></div>
 <% @availabilities.each do |a| %>

@@ -1,8 +1,8 @@
 class DashboardsController < ApplicationController
     def index 
-        @appointments = Appointment.all 
-        @availabilities = Availability.all
-        @calendars = Calendar.all
-        @forms = Form.all
+        @calendar = Calendar.first
+        @appointments = @calendar.appointments.all 
+        @availabilities = @calendar.availabilities.all
+        @forms = @calendar.forms.all
     end 
 end
