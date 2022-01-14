@@ -1,9 +1,15 @@
 class Availability < ApplicationRecord
-  belongs_to :calendar
+  require 'slotfinder/slotfinder.rb'
 
+
+  belongs_to :calendar
+  
   # Scopes 
   scope :in_range, -> range {
     where('(from BETWEEN ? AND ?)', range.first, range.last)
+  }
+  scope :in_range_of_start, -> range {
+    where('start_time >= ? AND start_time <= ?', range.first, range.last)
   }
   scope :exclude_self, -> id { where.not(id: id) }
   
@@ -25,6 +31,14 @@ class Availability < ApplicationRecord
     if start_time > end_time 
       errors.add(:availability, "End time can't be earlier than start time.")
     end
+  end
+
+  def list_slots
+    return Slotfinder.get_slots( 
+      for_range: start_time..end_time,
+      slot_length_mins: calendar.interval,
+      interval_mins: calendar.interval,
+    )
   end
 
 end

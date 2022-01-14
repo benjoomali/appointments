@@ -51,6 +51,17 @@
   <div>You are on Calendar: <%= @form.calendars.first.name %></div>
 
   <% if @availabilities.present? %>
+  <% if @avail.present? %>
+  <div>
+  <h2>Availabilities this Week</h2> 
+  <div><% @avail.each do |a| %>
+    <%= a.start_time %> -> <%= a.end_time %>
+    <% a.list_slots.each do |slot| %>
+      <p><%= slot[:time] %></p>
+    <% end %>
+  <div><% end %></div>
+  </div>
+  <% end %>
   <div class="max-w-lg">
   <%= month_calendar(events: @availabilities) do |date, availabilities| %>
     <%= date.day %>

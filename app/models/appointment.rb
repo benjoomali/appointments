@@ -1,12 +1,24 @@
 class Appointment < ApplicationRecord
+  require "date" 
   belongs_to :calendar
   belongs_to :form_entries, optional: true
+
+  # Scopes 
+  #scope :in_range, -> range {
+  #  where('(from BETWEEN ? AND ?)', range.first, range.last)
+  #}
+  scope :in_range_of_start, -> range {
+    where('start_time >= ? AND start_time <= ?', range.first, range.last)
+  }
+  scope :exclude_self, -> id { where.not(id: id) }
 
   validates :start_time, :end_time, presence: true
   validate :validate_interval
   validate :validate_availabilities_of_day
   validate :validate_falls_within_an_availability
+  validate :validate_appointment_overlap
   
+
   #TODO: public method
   def check_availability
   end
@@ -48,27 +60,16 @@ class Appointment < ApplicationRecord
     end
   end 
 
-  # validate that the time is correct
+  # Validates the start_time of the appointment against other appointments
+  def validate_appointment_overlap
+    # Set a range from the New Appointment Start to End
+    range = Range.new start_time, end_time
 
-
-  #has_many :entry_appointments, :dependent => :destroy 
-  #has_many :form_entries, through: :entry_appointments
-  #accepts_nested_attributes_for :entry_appointments
-
-
-
-  # Return false if more or equal appointments than available
-=begin
-  def check_availability
-    if self.entry_appointments.count >= capacity 
-      return false
-    else 
-      puts "Still available"
-      return true 
-    end 
-  end
-
-=end
-
+    overlaps = Appointment.in_range_of_start(range).exclude_self(id)
+    # If there are overlaps, then return an error
+    unless overlaps.blank? 
+      errors.add(:overlap_error, 'There is already an appointment set for this time')
+    end
+  end 
 
 end

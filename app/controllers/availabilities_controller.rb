@@ -45,16 +45,17 @@ end
       format.json { head :no_content }
     end
   end
+  
+  private
+  
+  def get_slots
+    @appts = Slotfinder.get_slots( 
+      for_range: @availability.start_time..@availability.end_time,
+      slot_length_mins: @availability.calendar.interval,
+      interval_mins: @availability.calendar.interval,
+    )
+  end
 
-
-private
-def get_slots
-  @appts = Slotfinder.get_slots( 
-    for_range: @availability.start_time..@availability.end_time,
-    slot_length_mins: 30,
-    interval_mins: 30,
-  )
-end
 
 # Use callbacks to share common setup or constraints between actions.
 def set_availability

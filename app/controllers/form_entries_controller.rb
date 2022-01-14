@@ -20,6 +20,7 @@ class FormEntriesController < ApplicationController
     # If Form is attached to calendar, create availabilities variable
     if @form.calendars.any?
       @availabilities = @form.calendars.first.availabilities
+      @avail = Availability.in_range_of_start((DateTime.now - 3)..(DateTime.now + 4))
     end 
   end
 
