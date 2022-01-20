@@ -59,3 +59,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "devise", "~> 4.8"
 gem "cssbundling-rails", "~> 1.0.0"
 gem "jsbundling-rails", "~> 1.0.0"
+gem "local_time", "~> 2.1"

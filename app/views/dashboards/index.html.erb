@@ -12,11 +12,11 @@
   <div><h2 class="text-lg">Availability</h2> <span>Define when appointments can be scheduled based off of Calendar interval time.</span></div>
   <% @availabilities.each do |a| %>
       <ul>
-          <li><%= a.start_time %> -> <%= a.end_time %></li>
+          <li><%= local_time(a.start_time) %> -> <%= local_time(a.end_time) %></li>
       </ul>
   <% end %>
   <div>
-  <%= link_to "Add Availability", new_availability_path, class: "btn bg-blue-500 text-white p-2 rounded" %>
+  <%= link_to "Add Availability", new_availability_path, class: "btn-primary" %>
   </div>
 </div>
 
@@ -25,7 +25,7 @@
     <div><h2 class="text-lg">Appointments</h2> <span>Every booked appointment. Appts can't be booked individually without form submit</span></div>
     <% @appointments.each do |appt| %>
         <ul>
-            <li><%= appt.start_time %></li>
+            <li><%= local_time(appt.start_time) %></li>
         </ul>
     <% end %>
   </div>
@@ -37,13 +37,13 @@
             <div class="flex items-center justify-between">
               <h4 class="underline">Name: <%= form.name %></h4>
               <div>
-                <%= link_to "New Form Entry", new_form_form_entry_path(form), class: "btn bg-blue-500 text-white p-2 rounded" %>
+                <%= link_to "New Form Entry", new_form_form_entry_path(form), class: "btn-primary" %>
               </div>
             </div>
             <p class="underline">Entries:</p>
             <ul class="space-y-1">
             <% form.form_entries.each_with_index do |entry, index| %>
-                <li class="text-sm"><%= index %> <%= entry.name %> - <%= entry.phone %> - <%= entry.email %> - <%= entry.appointments.first.start_time %></li>
+                <li class="text-sm"><%= index %> <%= entry.name %> - <%= entry.phone %> - <%= entry.email %> - <%= local_time(entry.appointments.first.start_time) %></li>
             <% end %>
             </ul>
         </div>

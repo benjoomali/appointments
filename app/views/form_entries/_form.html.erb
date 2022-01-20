@@ -11,6 +11,7 @@
     </div>
   <% end %>
 
+  <div class="form-group">
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
@@ -24,6 +25,7 @@
   <div class="field">
     <%= form.label :phone %>
     <%= form.text_field :phone %>
+  </div>
   </div>
 
   <div>
@@ -62,17 +64,7 @@
   <div><% end %></div>
   </div>
   <% end %>
-  <div class="max-w-lg">
-  <%= month_calendar(events: @availabilities) do |date, availabilities| %>
-    <%= date.day %>
 
-    <% availabilities.each do |avail| %>
-      <div>
-        <%= avail.id %> - <%= avail.start_time.strftime("%I:%M%p") %> - <%= avail.end_time.strftime("%I:%M%p") %>
-      </div>
-    <% end %>
-  <% end %>
-  </div>
   <% else %>
   <p>There are no available times to book.</p>
   <% end %>
