@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full antialiased">
   <head>
     <title>Appointments</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= stylesheet_link_tag "application", media: 'all', "data-turbo-track": "reload" %>
+
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 </head>
 
-  <body>
-    <%= yield %>
+  <body class="font-inter bg-white text-gray-900 tracking-tight">
+    <main class="max-w-7xl mx-auto sm:px-6 lg:px-8 min-h-screen flex flex-col">
+      <%= yield %>
+    </main>
   </body>
 </html>

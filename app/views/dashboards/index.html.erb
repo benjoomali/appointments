@@ -1,57 +1,72 @@
-<h1>Appointments Demo</h1>
+<div class="py-8 space-y-4">
+<h1 class="text-xl font-bold">Appointments Demo</h1>
 
-<br/>
+<div>
+  <div><h2 class="text-lg">Calendars</h2></div>
 
-<div><h2>Calendars </h2></div>
+  <div>You are on Calendar ID:<%= @calendar.id %> </div>
+  <div>This Calendar is split into <%= @calendar.interval %> minute intervals</div>
+</div>
 
-<div>You are on Calendar ID:<%= @calendar.id %> </div>
-<div>This Calendar is split into <%= @calendar.interval %> minute intervals</div>
-
-
-<div><h2>Availability</h2> <span>Define when appointments can be scheduled based off of Calendar interval time.</span></div>
-<% @availabilities.each do |a| %>
-    <ul>
-        <li><%= a.start_time %> -> <%= a.end_time %></li>
-    </ul>
-<% end %>
-<%= link_to "Add Availability", new_availability_path %>
-
-
-<div><h2>Appointments</h2> <span>Every booked appointment. Appts can't be booked individually without form submit</span></div>
-<% @appointments.each do |appt| %>
-    <ul>
-        <li><%= appt.start_time %></li>
-    </ul>
-<% end %>
-
-<div><h2>Forms</h2>  <span>In order to book appointment, you must submit a form</span></div>
-<% @forms.each do |form| %>
-    <div>
-        <h4>Name: <%= form.name %></h4>
-        <%= link_to "New Form Entry", new_form_form_entry_path(form) %>
-        <p>Entries:</p>
-        <ul>
-        <% form.form_entries.each do |entry| %>
-            <li><%= entry.name %> - <%= entry.phone %> - <%= entry.email %> - <%= entry.appointments.first.start_time %></li>
-        <% end %>
-        </ul>
-    </div>
-<% end %>
-
-
-
-  <div style="max-width: 75%; margin-top: 2rem;">
-  <%= month_calendar(events: @appointments) do |date, appointments| %>
-    <%= date.day %>
-
-    <% appointments.each do |appointment| %>
-      <div style="color: #FFC; padding: 4px; background-color: #64a1d1; margin-bottom:1px;">
-      <% if appointment.check_availability %>
-        <%= appointment.id %> - <%= appointment.start_time.strftime("%I:%M%p") %>
-      <% else %>
-        Booked - <%= appointment.start_time.strftime("%I:%M%p") %>
-      <% end%>
-      </div>
-    <% end %>
+<div class="space-y-2">
+  <div><h2 class="text-lg">Availability</h2> <span>Define when appointments can be scheduled based off of Calendar interval time.</span></div>
+  <% @availabilities.each do |a| %>
+      <ul>
+          <li><%= a.start_time %> -> <%= a.end_time %></li>
+      </ul>
   <% end %>
+  <div>
+  <%= link_to "Add Availability", new_availability_path, class: "btn bg-blue-500 text-white p-2 rounded" %>
+  </div>
+</div>
+
+<div class="grid sm:grid-cols-2 gap-5">
+  <div>
+    <div><h2 class="text-lg">Appointments</h2> <span>Every booked appointment. Appts can't be booked individually without form submit</span></div>
+    <% @appointments.each do |appt| %>
+        <ul>
+            <li><%= appt.start_time %></li>
+        </ul>
+    <% end %>
+  </div>
+
+  <div class="space-y-2">
+    <div><h2 class="text-lg">Form Entries</h2>  <span>In order to book appointment, you must submit a form</span></div>
+    <% @forms.each do |form| %>
+        <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="underline">Name: <%= form.name %></h4>
+              <div>
+                <%= link_to "New Form Entry", new_form_form_entry_path(form), class: "btn bg-blue-500 text-white p-2 rounded" %>
+              </div>
+            </div>
+            <p class="underline">Entries:</p>
+            <ul class="space-y-1">
+            <% form.form_entries.each_with_index do |entry, index| %>
+                <li class="text-sm"><%= index %> <%= entry.name %> - <%= entry.phone %> - <%= entry.email %> - <%= entry.appointments.first.start_time %></li>
+            <% end %>
+            </ul>
+        </div>
+    <% end %>
+  </div>
+</div>
+
+<div>
+    <div class="max-w-7xl border p-5">
+    <%= month_calendar(events: @appointments) do |date, appointments| %>
+      <%= date.day %>
+
+      <% appointments.each do |appointment| %>
+        <div style="color: #FFC; padding: 4px; background-color: #64a1d1; margin-bottom:1px;">
+        <% if appointment.check_availability %>
+          <%= appointment.id %> - <%= appointment.start_time.strftime("%I:%M%p") %>
+        <% else %>
+          Booked - <%= appointment.start_time.strftime("%I:%M%p") %>
+        <% end%>
+        </div>
+      <% end %>
+    <% end %>
+    </div>
+  </div>
+
   </div>
