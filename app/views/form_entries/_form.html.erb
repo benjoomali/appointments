@@ -11,68 +11,68 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+  <div class="max-w-lg py-8">
+    <div class="space-y-2">
+      <div>  
+        <p>You are on <%= @form.name %></p>
+        <p>You are on Calendar: <%= @form.calendars.first.name %></p>
+      </div>
+      <div class="relative block">
+        <%= form.text_field :name, class: "shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-500 focus:shadow-outline", placeholder: true %>
+      </div>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
+      <div class="relative block">
+        <%= form.text_field :email, class: "shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-500 focus:shadow-outline", placeholder: true %>
+      </div>
 
-  <div class="field">
-    <%= form.label :phone %>
-    <%= form.text_field :phone %>
-  </div>
-  </div>
-
-  <div>
-  <h3>Associations</h3>
-  </div>
-  <div>
-
-  <%= form.fields_for :appointments do |f| %>
-    <p>Appointments</p>
-    <div class="field">
-      <%= f.label :start_time %>
-      <%= f.datetime_select :start_time %>
+      <div class="relative block">
+        <%= form.text_field :phone, class: "shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-500 focus:shadow-outline", placeholder: true %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :end_time %>
-      <%= f.datetime_select :end_time %>
-    </div>
-    <div class="field">
-      <%= f.number_field :calendar_id, value: @form.calendars.first.id %>
-    </div>
-  <% end %>
   </div>
 
-  <div>You are on Form: <%= @form.name %></div>
-  <div>You are on Calendar: <%= @form.calendars.first.name %></div>
+  <div data-controller="book-appointment">
 
-  <% if @availabilities.present? %>
-  <% if @avail.present? %>
-  <div>
-  <h2>Availabilities this Week</h2> 
-  <div><% @avail.each do |a| %>
-    <%= a.start_time %> -> <%= a.end_time %>
-    <% a.list_slots.each do |slot| %>
-      <p><%= slot[:time] %></p>
+    <div>
+      <%= form.fields_for :appointments do |f| %>
+        <h3 class="text-md font-semibold">Book an Appointment Time</h3>
+        <div class="field">
+          <%= f.label :start_time %>
+          <%= f.datetime_select :start_time %>
+        </div>
+        <div class="field">
+          <%= f.label :end_time %>
+          <%= f.datetime_select :end_time %>
+        </div>
+        <div class="field">
+          <%= f.number_field :calendar_id, value: @form.calendars.first.id %>
+        </div>
+      <% end %>
+    </div>
+    
+    <% if @availabilities.present? %>
+    <% if @avail.present? %>
+    <div class="max-w-md">
+      <h2 class="text-lg">Availabilities this Week</h2> 
+      <div class="relative block space-y-3"><% @avail.each do |a| %>
+        <p><%= local_time(a.start_time) %> -> <%= local_time(a.end_time) %></p>
+        <% a.list_slots.each do |slot| %>
+            <span class="relative block w-auto bg-green-300 rounded-md shadow px-4 py-3 cursor-pointer hover:bg-green-100" data-book-appointment-target="slot" data-action="click->book-appointment#fire"><%= slot[:time] %></span>
+          <% end %>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+
+    <% else %>
+    <p>There are no available times to book.</p>
     <% end %>
-  <div><% end %></div>
+
   </div>
-  <% end %>
-
-  <% else %>
-  <p>There are no available times to book.</p>
-  <% end %>
-
 
   
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Submit Form", class: 'btn-primary' %>
   </div>
 <% end %>
