@@ -52,13 +52,16 @@
     
     <% if @availabilities.present? %>
     <% if @avail.present? %>
-    <div class="max-w-md">
-      <h2 class="text-lg">Availabilities this Week</h2> 
-      <div class="relative block space-y-3"><% @avail.each do |a| %>
-        <p><%= local_time(a.start_time) %> -> <%= local_time(a.end_time) %></p>
-        <% a.list_slots.each do |slot| %>
-            <span class="relative block w-auto bg-green-300 rounded-md shadow px-4 py-3 cursor-pointer hover:bg-green-100" data-book-appointment-target="slot" data-action="click->book-appointment#fire"><%= slot[:time] %></span>
+    <div class="max-w-7xl">
+      <h2 class="text-lg font-bold">Availabilities this Week</h2> 
+      <div class="relative block space-y-3 grid grid-cols-4 gap-4">
+        <% @avail.each do |a| %>
+          <div>
+            <p class="text-xs"><%= local_time(a.start_time) %> -> <%= local_time(a.end_time) %></p>
+            <% a.list_slots.each do |slot| %>
+                <span class="relative block w-auto bg-green-300 rounded-md shadow px-4 py-3 cursor-pointer hover:bg-green-100" data-book-appointment-target="slot" data-action="click->book-appointment#fire"><%= slot[:time] %></span>
           <% end %>
+          </div>
         <% end %>
       </div>
       <% end %>
