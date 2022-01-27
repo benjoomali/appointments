@@ -38,11 +38,11 @@
         <h3 class="text-md font-semibold">Book an Appointment Time</h3>
         <div class="field">
           <%= f.label :start_time %>
-          <%= f.datetime_select :start_time %>
+          <%= f.text_field :start_time, class: 'border border-black', data: { "book-appointment-target": "start"} %>
         </div>
         <div class="field">
           <%= f.label :end_time %>
-          <%= f.datetime_select :end_time %>
+          <%= f.text_field :end_time, class: 'border border-black', class: 'border border-black', data: { "book-appointment-target": "end"}  %>
         </div>
         <div class="field">
           <%= f.number_field :calendar_id, value: @form.calendars.first.id %>
@@ -54,12 +54,15 @@
     <% if @avail.present? %>
     <div class="max-w-7xl">
       <h2 class="text-lg font-bold">Availabilities this Week</h2> 
-      <div class="relative block space-y-3 grid grid-cols-4 gap-4">
+      <div class="relative block space-y-3 grid grid-cols-2 xl:grid-cols-4 gap-4">
         <% @avail.each do |a| %>
           <div>
             <p class="text-xs"><%= local_time(a.start_time) %> -> <%= local_time(a.end_time) %></p>
             <% a.list_slots.each do |slot| %>
-                <span class="relative block w-auto bg-green-300 rounded-md shadow px-4 py-3 cursor-pointer hover:bg-green-100" data-book-appointment-target="slot" data-action="click->book-appointment#fire"><%= slot[:time] %></span>
+                <%= tag.span id: dom_id(a, :slot), class: "relative block w-auto bg-green-300 rounded-md shadow px-4 py-3 cursor-pointer hover:bg-green-100 mb-2", data: {
+                  "book-appointment-target": "slot", action: "click->book-appointment#fire", start_time: slot[:start_time], end_time: slot[:end_time] } do %>
+                  <%= local_time(slot[:start_time]) %>
+                <% end %>
           <% end %>
           </div>
         <% end %>

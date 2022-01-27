@@ -61,7 +61,7 @@
         <% if appointment.check_availability %>
           <%= appointment.id %> - <%= appointment.start_time.strftime("%I:%M%p") %>
         <% else %>
-          Booked - <%= appointment.start_time.strftime("%I:%M%p") %>
+          Booked - <%= local_time(appointment.start_time.strftime("%I:%M%p")) %>
         <% end%>
         </div>
       <% end %>
