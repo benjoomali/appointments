@@ -33,11 +33,22 @@ class Availability < ApplicationRecord
     end
   end
 
+
+  # Find all appointments on the day of availability and exclude them in Slotfinder method
   def list_slots
+    day = start_time.all_day
+    appts_for_day = calendar.appointments.where(start_time: day)
+    appt_array = Array.new
+    appts_for_day.each do |appt|
+      range = Range.new appt.start_time, appt.end_time
+      appt_array << range
+    end
+
     return Slotfinder.get_slots( 
       for_range: start_time..end_time,
       slot_length_mins: calendar.interval,
       interval_mins: calendar.interval,
+      exclude_times: appt_array
     )
   end
 

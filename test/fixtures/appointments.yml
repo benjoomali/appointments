@@ -1,15 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  start_time: 2021-08-03 14:43:48
-  end_time: 2021-08-03 14:43:48
-  capacity: 1
-  bookable: false
-  calendar: one
+#one:
+#  start_time: 2021-08-03 14:43:48
+#  end_time: 2021-08-03 14:43:48
+#  capacity: 1
+#  bookable: false
+#  calendar: one
 
-two:
-  start_time: 2021-08-03 14:43:48
-  end_time: 2021-08-03 14:43:48
-  capacity: 1
-  bookable: false
-  calendar: two
+#two:
+#  start_time: 2021-08-03 14:43:48
+#  end_time: 2021-08-03 14:43:48
+#  capacity: 1
+#  bookable: false
+#  calendar: two

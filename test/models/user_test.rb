@@ -1,7 +1,7 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "has email" do 
+    assert_equal "ben@example.com", users(:one).email
+  end
 end

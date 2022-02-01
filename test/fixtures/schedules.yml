@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  start_time: 2021-07-13 16:25:46
-  end_time: 2021-07-13 16:25:46
-  day_of_week: 1
-  calendar: one
+#one:
+#  start_time: 2021-07-13 16:25:46
+#  end_time: 2021-07-13 16:25:46
+#  day_of_week: 1
+#  calendar: one
 
-two:
-  start_time: 2021-07-13 16:25:46
-  end_time: 2021-07-13 16:25:46
-  day_of_week: 1
-  calendar: two
+#two:
+#  start_time: 2021-07-13 16:25:46
+#  end_time: 2021-07-13 16:25:46
+#  day_of_week: 1
+#  calendar: two

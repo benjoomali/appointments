@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyText
+  name: "Calendar 1"
+  description: "A Test Calendar #1"
   user: one
+  interval: 30
 
-two:
-  name: MyString
-  description: MyText
-  user: two
+#two:
+#  name: MyString
+#  description: MyText
+#  user: two
+#  interval: 15
