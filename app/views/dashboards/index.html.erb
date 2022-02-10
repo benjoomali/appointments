@@ -9,10 +9,10 @@
 </div>
 
 <div class="space-y-2">
-  <div><h2 class="text-lg">Availability</h2> <span>Define when appointments can be scheduled based off of Calendar interval time.</span></div>
+  <div><h2 class="text-lg">Availability this month</h2> <span>Define when appointments can be scheduled based off of Calendar interval time.</span></div>
   <% @availabilities.each do |a| %>
       <ul>
-          <li><%= local_time(a.start_time) %> -> <%= local_time(a.end_time) %></li>
+          <li><%= local_time(a.start_time) %> -> <%= local_time(a.end_time) %> <%= link_to "View", availability_path(a), class: "ml-2 text-blue-400 hover:text-blue-500" %></li>
       </ul>
   <% end %>
 </div>
@@ -21,14 +21,6 @@
   </div>
 
 <div class="grid sm:grid-cols-2 gap-5">
-  <div>
-    <div><h2 class="text-lg">Appointments</h2> <span>Every booked appointment. Appts can't be booked individually without form submit</span></div>
-    <% @appointments.each do |appt| %>
-        <ul>
-            <li><%= local_time(appt.start_time) %></li>
-        </ul>
-    <% end %>
-  </div>
 
   <div class="space-y-2">
     <div><h2 class="text-lg">Form Entries</h2>  <span>In order to book appointment, you must submit a form</span></div>
@@ -49,6 +41,14 @@
         </div>
     <% end %>
   </div>
+  <div>
+    <div><h2 class="text-lg">Appointments this month</h2> <span>Every booked appointment. Appts can't be booked individually without form submit</span></div>
+    <% @appointments.each do |appt| %>
+        <ul>
+            <li><%= local_time(appt.start_time) %></li>
+        </ul>
+    <% end %>
+  </div>
 </div>
 
 <div>
@@ -57,7 +57,7 @@
       <%= date.day %>
 
       <% appointments.each do |appointment| %>
-        <div style="color: #FFC; padding: 4px; background-color: #64a1d1; margin-bottom:1px;">
+        <div class="text-white px-1.5 py-1 bg-blue-500 mb-1 text-xs rounded-lg">
         <% if appointment.check_availability %>
           <%= appointment.id %> - <%= appointment.start_time.strftime("%I:%M%p") %>
         <% else %>

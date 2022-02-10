@@ -12,6 +12,7 @@ class Availability < ApplicationRecord
     where('start_time >= ? AND start_time <= ?', range.first, range.last)
   }
   scope :exclude_self, -> id { where.not(id: id) }
+  scope :current_month, -> { where(start_time: Time.zone.now.beginning_of_month..Time.zone.now.end_of_month)}
   
 
   # Validation, no breathing
